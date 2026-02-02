@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Galería DJI 360 VR</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+</head>
+<body>
+
+    <a-scene>
+        <a-assets>
+            <img id="img1" src="DJI_0167.JPG">
+            <img id="img2" src="DJI_0168.JPG">
+            <img id="img3" src="DJI_0169.JPG">
+        </a-assets>
+
+        <a-sky id="visor" src="#img1" rotation="0 -90 0"></a-sky>
+
+        <a-entity camera look-controls>
+            <a-cursor color="#FF0000"></a-cursor>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        const fotos = ['#img1', '#img2', '#img3'];
+        let indice = 0;
+        const visor = document.querySelector('#visor');
+
+        // Función para cambiar de foto
+        function siguienteFoto() {
+            indice = (indice + 1) % fotos.length;
+            visor.setAttribute('src', fotos[indice]);
+        }
+
+        // 1. Cambiar al hacer clic (útil en móvil o con el botón de las gafas)
+        window.addEventListener('click', siguienteFoto);
+
+        // 2. Cambiar con las flechas del teclado
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                siguienteFoto();
+            }
+        });
+    </script>
+</body>
+</html>
